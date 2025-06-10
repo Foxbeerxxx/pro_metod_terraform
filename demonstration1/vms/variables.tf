@@ -9,7 +9,7 @@ variable "image_id" {
   type        = string
 }
 
-variable "subnet_id" {
-  description = "ID подсети"
-  type        = string
-}
+#variable "subnet_id" {
+#  description = "ID подсети"
+#  type        = string
+#}

@@ -1,14 +1,14 @@
 variable "env_name" {
-  description = "develop"
+  description = "Environment name for network"
   type        = string
 }
 
 variable "zone" {
-  description = "Зона размещения подсети"
+  description = "Availability zone"
   type        = string
 }
 
 variable "cidr" {
-  description = "CIDR блок подсети"
+  description = "CIDR block for subnet"
   type        = string
 }
