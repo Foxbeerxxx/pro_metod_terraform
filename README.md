@@ -126,64 +126,57 @@ module "vpc_dev" {
 ![3](https://github.com/Foxbeerxxx/pro_metod_terraform/blob/main/img/img3.png)
 
 
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
-
-```
-Поле для вставки кода...
-....
-....
-....
-....
-```
-
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота 2](ссылка на скриншот 2)`
-
 
 ---
 
 ### Задание 3
 
-`Приведите ответ в свободной форме........`
 
-1. `Заполните здесь этапы выполнения, если требуется ....`
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
+1. `Сначало вывожу список стейта terraform state list `
 
 ```
-Поле для вставки кода...
-....
-....
-....
-....
+alexey@dell:~/pro_metod_terraform/demonstration1/vms$ terraform state list 
+data.template_file.cloud_init
+yandex_compute_instance.vm_analytics
+yandex_compute_instance.vm_marketing
+module.vpc_dev.yandex_vpc_network.network
+module.vpc_dev.yandex_vpc_subnet.subnet
 ```
 
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота](ссылка на скриншот)`
-
-### Задание 4
-
-`Приведите ответ в свободной форме........`
-
-1. `Заполните здесь этапы выполнения, если требуется ....`
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
+2. `Удалить VPC из стейта`
 
 ```
-Поле для вставки кода...
-....
-....
-....
-....
+terraform state rm module.vpc_dev.yandex_vpc_network.network
+terraform state rm module.vpc_dev.yandex_vpc_subnet.subnet
+
+```
+![4](https://github.com/Foxbeerxxx/pro_metod_terraform/blob/main/img/img4.png)
+
+3. `Удалить VM из стейта`
+
+```
+terraform state rm yandex_compute_instance.vm_analytics
+terraform state rm yandex_compute_instance.vm_marketing
+```
+![5](https://github.com/Foxbeerxxx/pro_metod_terraform/blob/main/img/img5.png)
+
+4. `Импорт`
+
+Перед импортом получаю реальные ID ресурсов в Яндекс Облаке:
+VPC:
+Сеть: ID можно найти командой yc vpc network list
+Подсеть: yc vpc subnet list
+ВМ:
+yc compute instance list
+
+```
+terraform import module.vpc_dev.yandex_vpc_network.network enpjkpb5gfnohco73vqb
+terraform import module.vpc_dev.yandex_vpc_subnet.subnet e9bp29e8k79hku5i0igl
+
+terraform import yandex_compute_instance.vm_analytics fhmalknkhvp96m5e2ven
+terraform import yandex_compute_instance.vm_marketing fhmn79epevi4bvunhbme
 ```
 
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота](ссылка на скриншот)`
+5. `Выполняю terraform plan и получаю результат`
+
+![6](https://github.com/Foxbeerxxx/pro_metod_terraform/blob/main/img/img6.png)
